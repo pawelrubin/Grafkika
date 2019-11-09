@@ -8,11 +8,29 @@
         <title>Logo</title>
     </head>
     <body>
-        <canvas id="logoCanvas" height="720" width="720" >
-        </canvas>
-        <div id="logoControls">
-            <input id="controlInput"/>
-            <button id="execControlButton">Go</button>
-        </div>
+        <main>
+            <canvas id="logoCanvas" height="720" width="720" >
+            </canvas>
+            <div id="logoSide">
+                <div id="logoControls">
+                    <input id="controlInput"/>
+                    <button id="execButton">
+                        Go
+                    </button>
+                </div>
+                <p id="coords"></p>
+                <p id="manual">
+                    Available commands:
+                    <ul>
+                        <li>forward</li>
+                        <li>backward</li>
+                        <li>left</li>
+                        <li>right</li>
+                        <li>up</li>
+                        <li>down</li>
+                    </ul>
+                </p>
+            </div>
+        </main>
     </body>
 </html>
