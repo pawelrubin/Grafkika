@@ -1,1 +1,3 @@
-https://pawelrubin.github.io/Grafkika/l01/zad3/hilbertSvg.html
+# Grafika Komputerowa
+
+Rozwiązania zadań z kursu ***Grafika Komputerowa*** na WPPT, PWr.
