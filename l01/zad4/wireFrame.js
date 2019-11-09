@@ -9,6 +9,7 @@ window.addEventListener('load', () => {
 	var dy = canvas.height / 2;
     const engine = new Engine(canvas)
     const camera = new Camera(new Vertex3D(0,0,0), 200, new PerspectiveProjection())
+    const distanceSlider = document.getElementById("distanceSlider");
 
     const cubeCenter = new Vertex3D(0, 11*dy/10, 0);
     const cube = new Cube(cubeCenter, dy);
@@ -22,14 +23,17 @@ window.addEventListener('load', () => {
     
     
 	canvas.addEventListener('touchstart', (event) => {
+        event.preventDefault();
         initMove(event.touches[event.touches.length - 1])
-    }, { passive: false });
+    });
 	canvas.addEventListener('touchmove',  (event) => {
+        event.preventDefault();
         move(event.touches[event.touches.length - 1])
-    }, { passive: false });
+    });
     canvas.addEventListener('touchcancel',  (event) => {
+        event.preventDefault();
         stopMove(event.touches[event.touches.length - 1])
-    }, { passive: false });
+    });
     
     // Events
 	var mousedown = false;
@@ -80,14 +84,23 @@ window.addEventListener('load', () => {
     }
 
     document.getElementById("perspectiveButton").addEventListener('click', () => {
+        distanceSlider.hidden = false;
         camera.projection = new PerspectiveProjection;
         engine.render(objects, camera);
     })
+
     document.getElementById("orthographicButton").addEventListener('click', () => {
+        distanceSlider.hidden = true;
         camera.projection = new OrthographicProjection;
         engine.render(objects, camera);
     })
 
+    distanceSlider.addEventListener('input', () => {
+        camera.distance = distanceSlider.value;
+        engine.render(objects, camera);
+    });
+
+    
 
     engine.render(objects, camera);
 })
