@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="turtle.js" type="module"></script>
+        <link rel="stylesheet" href="turtle.css">
+        <title>Logo</title>
+    </head>
+    <body>
+        <main>
+            <canvas id="logoCanvas" height="720" width="720" >
+            </canvas>
+            <div id="logoSide">
+                <div id="logoControls">
+                    <input id="controlInput"/>
+                    <button id="execButton">
+                        Go
+                    </button>
+                </div>
+                <p id="coords"></p>
+                <p id="manual">
+                    Available commands:
+                    <ul>
+                        <li>forward</li>
+                        <li>backward</li>
+                        <li>left</li>
+                        <li>right</li>
+                        <li>up</li>
+                        <li>down</li>
+                    </ul>
+                </p>
+                <input type="range" min="1" max="8" value="5" id="degreeSlider">
+                <button id="hilbertButton">
+                    Hilbert
+                </button>
+            </div>
+        </main>
+    </body>
+</html>
