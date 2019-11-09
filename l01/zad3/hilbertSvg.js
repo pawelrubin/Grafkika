@@ -21,7 +21,7 @@ window.addEventListener('load', () => {
         };
 
         let points = `0,0 `;
-        for (let i = 1; i < size ** 2; i++) {
+        for (let i = 0; i < size ** 2; i++) {
             let result = hindex2xy(i, size);
             let current = resizeCords(result.x, result.y, size);
             points += `${current.x},${current.y} `;
