@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
     var dx = canvas.width / 2;
 	var dy = canvas.height / 2;
     const engine = new Engine(canvas)
-    const camera = new Camera(new Vertex3D(0,0,0), 200, new PerspectiveProjection())
+    const camera = new Camera(200, new PerspectiveProjection())
     const distanceSlider = document.getElementById("distanceSlider");
 
     const cubeCenter = new Vertex3D(0, 11*dy/10, 0);
@@ -52,7 +52,7 @@ window.addEventListener('load', () => {
             var phi = (evt.clientY - my) * Math.PI / 180;
 
             for (var i = 0; i < 8; ++i)
-                rotate(cube.vertices[i], cubeCenter, theta, phi);
+                rotate(cube.vertices[i], camera.position, theta, phi);
 
             mx = evt.clientX;
             my = evt.clientY;
@@ -100,6 +100,22 @@ window.addEventListener('load', () => {
         engine.render(objects, camera);
     });
 
+    let vx = 0;
+    let vy = 0;
+    let vz = 0;
+
+    window.addEventListener('keypress', (event) => {
+        switch (event.key) {
+            case 'd':
+                vx = -0.1
+                break;
+            case 'a':
+                vx = 0.1
+                break
+
+            move(vx, vy, vz);
+        }
+    })
     
 
     engine.render(objects, camera);

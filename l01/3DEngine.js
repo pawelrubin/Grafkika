@@ -57,8 +57,8 @@ class OrthographicProjection {
 }
 
 class Camera {
-    constructor(position, distance, projection) {
-        this.position = position;
+    constructor(distance, projection) {
+        this.position = new Vertex3D(0, -distance, 0);
         this.distance = distance;
         this.projection = projection;
     }
