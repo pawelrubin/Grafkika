@@ -13,14 +13,14 @@ export const hilbertTurtle = (degree, baseLength) => {
     for (let i = 1; i < size ** 2; i++) {
         let current = hindex2xy(i, size);
 
-        if (current.x > previous.x) { //y can't change, go right, rot = 0
+        if (current.x > previous.x) { // y can't change, go right, rot = 0
             result += `right ${rotation}; forward ${baseLength}; `;
             rotation = 0;
         } else if (current.x === previous.x) { // y must change
             if (current.y > previous.y) { // go up, rot = 90
                 result += `right ${rotation - 90}; forward ${baseLength}; `;
                 rotation = 90;
-            } else { //go down, rot = 270
+            } else { // go down, rot = 270
                 result += `right ${rotation - 270}; forward ${baseLength};`;
                 rotation = 270;
             }

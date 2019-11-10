@@ -12,8 +12,8 @@ window.addEventListener('load', () => {
     const updateCoords = (x, y, r) => {
         coords.textContent = `x: ${x.toFixed(2)} y: ${y.toFixed(2)} r: ${r.toFixed(2)}`;
     };
+    
     const exec = () => {
-        console.log(controlInput.value)
         turtle.parseInput(controlInput.value);
         controlInput.value = '';
         updateCoords(turtle.x_pos, turtle.y_pos, turtle.rotation);

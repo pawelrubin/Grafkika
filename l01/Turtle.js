@@ -11,16 +11,7 @@ export class Turtle {
             return ((this % n) + n) % n
         }
     }
-
-    move_to_point(new_x, new_y) {
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.x_pos, this.y_pos);
-        this.ctx.lineTo(new_x, new_y);
-        this.ctx.stroke();
-        this.x_pos = new_x;
-        this.y_pos = new_y;
-    }
-
+    
     move(value) {
         this.ctx.beginPath();
         this.ctx.moveTo(this.x_pos, this.y_pos);
