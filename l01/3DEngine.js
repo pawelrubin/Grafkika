@@ -66,6 +66,18 @@ class Camera {
     project(vertex) {
         return this.projection.project(vertex, this.distance)
     }
+
+    move(direction) {
+        console.log(direction)
+        switch (direction) {
+            case 'left':
+                this.position.x -= 100
+                break;
+            case 'right':
+                this.position.x += 100
+                break;
+        }
+    }
 }
 
 class Engine {
@@ -104,7 +116,7 @@ class Engine {
                 this.ctx.stroke();
                 this.ctx.fill();
             }
-        }
+        }   
     }
 }
 

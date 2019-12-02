@@ -104,17 +104,16 @@ window.addEventListener('load', () => {
     let vy = 0;
     let vz = 0;
 
-    window.addEventListener('keypress', (event) => {
+    window.addEventListener('keyup', (event) => {
         switch (event.key) {
             case 'd':
-                vx = -0.1
+                camera.move('right')
                 break;
             case 'a':
-                vx = 0.1
+                camera.move('left')                
                 break
-
-            move(vx, vy, vz);
         }
+        engine.render(objects, camera)
     })
     
 
