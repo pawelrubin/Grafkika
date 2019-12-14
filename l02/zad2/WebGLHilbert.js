@@ -17,4 +17,11 @@ function calculateHilbertCurvePoints(degree, canvas) {
   return points;
 }
 
-export { calculateHilbertCurvePoints };
+function drawHilbert(webGL, degree) {
+  webGL.draw(
+    calculateHilbertCurvePoints(degree, webGL.gl.canvas),
+    "LINE_STRIP"
+  );
+}
+
+export { drawHilbert };
