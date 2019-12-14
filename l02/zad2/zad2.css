@@ -1,0 +1,20 @@
+* {
+    font-family: monospace;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#canvas {
+    border-color: black;
+    border-style: dashed;
+    width: 600px;
+    height: 600px;
+    border-width: 5px;
+    background-color: azure;
+}

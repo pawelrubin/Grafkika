@@ -1,4 +1,8 @@
-import { createWebGLProgram, createBuffer, draw, logActiveParameters } from "../WebGL.js";
+import {
+  createWebGLProgram,
+  draw,
+  logActiveParameters
+} from "../WebGL.js";
 import { sleep } from "../Utils.js";
 
 window.addEventListener("load", () => {
@@ -19,8 +23,6 @@ window.addEventListener("load", () => {
 
   const positions = [10, 50, 10, 10, 300, 10, 300, 590, 590, 590, 590, 550];
 
-  const positionBuffer = createBuffer(gl, positions);
-
   const primitiveTypes = [
     "POINTS",
     "LINES",
@@ -34,7 +36,7 @@ window.addEventListener("load", () => {
   async function demo() {
     while (true) {
       for (let primitiveType of primitiveTypes) {
-        draw(gl, webGLprogram, locations, positionBuffer, gl[primitiveType]);
+        draw(gl, webGLprogram, locations, positions, gl[primitiveType]);
         typeInfo.textContent = "primitive type: " + primitiveType;
         await sleep(2000);
       }

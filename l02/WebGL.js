@@ -67,8 +67,10 @@ function createBuffer(gl, positions) {
   return positionBuffer;
 }
 
-function draw(gl, webGLprogram, locations, positionBuffer, primitiveType) {
+function draw(gl, webGLprogram, locations, positions, primitiveType) {
+  const positionBuffer = createBuffer(gl, positions);
   resizeCanvas(gl.canvas);
+
   gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
   // Clear the canvas
@@ -109,7 +111,7 @@ function draw(gl, webGLprogram, locations, positionBuffer, primitiveType) {
     1
   );
 
-  gl.drawArrays(primitiveType, 0, 6);
+  gl.drawArrays(primitiveType, 0, positions.length / size);
 }
 
 function logActiveParameters(gl, webGLprogram) {

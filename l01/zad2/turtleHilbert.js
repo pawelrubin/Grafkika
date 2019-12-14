@@ -1,4 +1,4 @@
-import { hindex2xy } from "./../Hilbert.js";
+import { hindex2xy } from "../../Hilbert.js";
 
 
 export const hilbertTurtle = (degree, baseLength) => {
