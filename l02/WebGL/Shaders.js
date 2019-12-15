@@ -32,10 +32,12 @@ const matrixVertexShader = `
   
   uniform mat3 u_matrix;
   uniform float u_depth;
+  uniform float u_point_size;
 
   void main() {
     // Multiply the position by the matrix
     gl_Position = vec4((u_matrix * vec3(a_position, 1)).xy, u_depth, 1);
+    gl_PointSize = u_point_size;
   }
 `;
 

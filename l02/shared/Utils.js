@@ -23,4 +23,8 @@ function parseColor(colorString) {
   return [...chunkString(colorString.substring(1), 2), 1];
 }
 
-export { resizeCanvas, sleep, parseColor };
+function clone(object) {
+  return JSON.parse(JSON.stringify(object));
+}
+
+export { resizeCanvas, sleep, parseColor, clone };

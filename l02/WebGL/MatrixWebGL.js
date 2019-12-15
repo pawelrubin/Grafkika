@@ -13,6 +13,7 @@ export class DrawableObject {
     this.angleInRadians = 0;
     this.scale = [1, 1];
     this.depth = 0;
+    this.pointSize = 1;
   }
 }
 
@@ -27,7 +28,8 @@ export class MatrixWebGL {
       uniforms: {
         color: this.gl.getUniformLocation(this.program, "u_color"),
         matrix: this.gl.getUniformLocation(this.program, "u_matrix"),
-        depth: this.gl.getUniformLocation(this.program, "u_depth")
+        depth: this.gl.getUniformLocation(this.program, "u_depth"),
+        pointSize: this.gl.getUniformLocation(this.program, "u_point_size")
       }
     };
     resizeCanvas(this.gl.canvas);
@@ -122,6 +124,7 @@ export class MatrixWebGL {
       this.gl.uniformMatrix3fv(this.locations.uniforms.matrix, false, matrix);
       this.gl.uniform4fv(this.locations.uniforms.color, object.color);
       this.gl.uniform1f(this.locations.uniforms.depth, object.depth);
+      this.gl.uniform1f(this.locations.uniforms.pointSize, object.pointSize);
       this.gl.drawArrays(this.gl[object.primitiveType], 0, object.positions.length / size);
     });
   }
