@@ -1,11 +1,12 @@
 import { hindex2xy } from "../../Hilbert.js";
+import { DrawableObject } from "../WebGL/MatrixWebGL.js";
 
 const resizeCords = (point, degree, width, height) => ({
-  x: point.x / (degree - 1) * (width - 2) + 1,
-  y: point.y / (degree - 1) * (height - 2) + 1
+  x: (point.x / (degree - 1)) * (width - 2) + 1,
+  y: (point.y / (degree - 1)) * (height - 2) + 1
 });
 
-function calculateHilbertCurvePoints(degree, canvas) {
+export function calculateHilbertCurvePoints(degree, canvas) {
   const size = 2 ** degree;
   let points = [];
 
@@ -17,11 +18,10 @@ function calculateHilbertCurvePoints(degree, canvas) {
   return points;
 }
 
-function drawHilbert(webGL, degree) {
-  webGL.draw(
-    calculateHilbertCurvePoints(degree, webGL.gl.canvas),
-    "LINE_STRIP"
+export function drawHilbert(webGL, degree) {
+  const hilbert = new DrawableObject(
+    calculateHilbertCurvePoints(degree, webGL.gl.canvas)
   );
-}
 
-export { drawHilbert };
+  webGL.draw([hilbert], "LINE_STRIP");
+}

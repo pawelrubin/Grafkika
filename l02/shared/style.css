@@ -18,3 +18,14 @@ body {
     border-width: 5px;
     background-color: azure;
 }
+
+#controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+#degree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,13 +1,17 @@
-import { drawHilbert } from "./WebGLHilbert.js";
+import { drawHilbert, calculateHilbertCurvePoints } from "./WebGLHilbert.js";
 import { WebGL } from "../WebGL/WebGL.js";
+import { MatrixWebGL, DrawableObject } from "../WebGL/MatrixWebGL.js";
 
 window.addEventListener("load", () => {
-  const webGL = new WebGL(canvas);
+  const webGL = new MatrixWebGL(canvas);
 
-  degreeSlider.addEventListener("input", () => {
+  let hilberts = [];
+
+  newHilbertButton.addEventListener("click", () => {
+    hilberts.push(new DrawableObject(calculateHilbertCurvePoints(degreeSlider.value, webGL.gl.canvas)))
     degreeLabel.textContent = `Degree: ${degreeSlider.value}`;
-    drawHilbert(webGL, degreeSlider.value);
+    webGL.draw(hilberts, "LINE_STRIP");
   });
 
-  degreeSlider.dispatchEvent(new Event("input"));
+  newHilbertButton.dispatchEvent(new Event("click"));
 });
