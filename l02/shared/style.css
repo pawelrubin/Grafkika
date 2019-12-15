@@ -31,7 +31,11 @@ body {
     align-items: center;
 }
 
-.game {
-    background-color: #09132b !important;
-    border-color: gold !important; 
+#canvas.game {
+    background-color: #09132b;
+    border-color: gold; 
+}
+
+h2 {
+    border-bottom: 3px solid gold;
 }
