@@ -26,7 +26,7 @@ window.addEventListener("load", () => {
   function render() {
     stars.forEach(s => {
       if (s.translation[1] > canvas.height) {
-        s.translation[1] = 0;
+        s.translation[1] = -canvas.height;
       } 
       s.translation[1] += 1 - (s.depth);
     })
