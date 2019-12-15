@@ -5,8 +5,9 @@ import { m3 } from "../WebGL/Matrix.js";
 const randomColor = () => [Math.random(), Math.random(), Math.random(), 1];
 
 export class DrawableObject {
-  constructor(positions) {
+  constructor(positions, primitiveType) {
     this.positions = positions;
+    this.primitiveType = primitiveType;
     this.color = randomColor();
     this.translation = [0, 0];
     this.angleInRadians = 0;
@@ -72,7 +73,7 @@ export class MatrixWebGL {
     return program;
   }
 
-  draw(objects, primitiveType) {
+  draw(objects) {
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clearColor(0, 0, 0, 0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
@@ -121,7 +122,7 @@ export class MatrixWebGL {
       this.gl.uniformMatrix3fv(this.locations.uniforms.matrix, false, matrix);
       this.gl.uniform4fv(this.locations.uniforms.color, object.color);
       this.gl.uniform1f(this.locations.uniforms.depth, object.depth);
-      this.gl.drawArrays(this.gl[primitiveType], 0, object.positions.length / size);
+      this.gl.drawArrays(this.gl[object.primitiveType], 0, object.positions.length / size);
     });
   }
 }
