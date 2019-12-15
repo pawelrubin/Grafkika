@@ -18,7 +18,7 @@ window.addEventListener("load", () => {
       calculateHilbertCurvePoints(degree, webGL.gl.canvas),
       "LINE_STRIP"
     );
-    hilbert.depth = (degree - 1) / 7;
+    hilbert.depth = (degree - 1) / 8;
     hilberts.push(hilbert);
     updateDegree();
     webGL.draw(hilberts);
