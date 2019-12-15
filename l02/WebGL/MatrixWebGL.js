@@ -5,12 +5,13 @@ import { m3 } from "../WebGL/Matrix.js";
 const randomColor = () => [Math.random(), Math.random(), Math.random(), 1];
 
 export class DrawableObject {
-  constructor(positions, color=randomColor()) {
+  constructor(positions) {
     this.positions = positions;
-    this.color = color;
+    this.color = randomColor();
     this.translation = [0, 0];
     this.angleInRadians = 0;
     this.scale = [1, 1];
+    this.depth = 0;
   }
 }
 
@@ -24,7 +25,8 @@ export class MatrixWebGL {
       },
       uniforms: {
         color: this.gl.getUniformLocation(this.program, "u_color"),
-        matrix: this.gl.getUniformLocation(this.program, "u_matrix")
+        matrix: this.gl.getUniformLocation(this.program, "u_matrix"),
+        depth: this.gl.getUniformLocation(this.program, "u_depth")
       }
     };
     resizeCanvas(this.gl.canvas);
@@ -74,8 +76,11 @@ export class MatrixWebGL {
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clearColor(0, 0, 0, 0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+    this.gl.enable(this.gl.DEPTH_TEST);
+    this.gl.depthFunc(this.gl.LEQUAL);
     this.gl.useProgram(this.program);
     this.gl.enableVertexAttribArray(this.locations.attributes.position);
+    this.gl.lineWidth(4);
 
     objects.forEach(object => {
       this.gl.enableVertexAttribArray(this.locations.attributes.position);
@@ -115,6 +120,7 @@ export class MatrixWebGL {
 
       this.gl.uniformMatrix3fv(this.locations.uniforms.matrix, false, matrix);
       this.gl.uniform4fv(this.locations.uniforms.color, object.color);
+      this.gl.uniform1f(this.locations.uniforms.depth, object.depth);
       this.gl.drawArrays(this.gl[primitiveType], 0, object.positions.length / size);
     });
   }

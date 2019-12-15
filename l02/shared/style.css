@@ -21,7 +21,8 @@ body {
 
 #controls {
     display: flex;
-    justify-content: space-between;
+    justify-items: space-between;
+    align-items: center;
 }
 
 #degree {

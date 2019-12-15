@@ -15,4 +15,12 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export { resizeCanvas, sleep };
+function chunkString(str, length) {
+  return str.match(new RegExp('.{1,' + length + '}', 'g'));
+}
+
+function parseColor(colorString) {
+  return [...chunkString(colorString.substring(1), 2), 1];
+}
+
+export { resizeCanvas, sleep, parseColor };
