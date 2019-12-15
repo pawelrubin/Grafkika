@@ -1,41 +1,64 @@
 * {
-    font-family: monospace;
+  font-family: monospace;
+}
+
+html {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-    height: 100%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
+  margin-block: 0;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #canvas {
-    border-color: black;
-    border-style: dashed;
+  border-color: black;
+  border-style: dashed;
+  width: 100%;
+  height: 100%;
+  border-width: 5px;
+  background-color: azure;
+}
+
+#desktopInfo {
+  visibility: hidden;
+}
+
+@media only screen and (min-width: 720px) {
+  #canvas {
     width: 600px;
     height: 600px;
-    border-width: 5px;
-    background-color: azure;
+  }
+  html {
+    height: auto;
+  }
+  #desktopInfo {
+    visibility: visible;
+  }
 }
 
 #controls {
-    display: flex;
-    justify-items: space-between;
-    align-items: center;
+  display: flex;
+  justify-items: space-between;
+  align-items: center;
 }
 
 #degree {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #canvas.game {
-    background-color: #09132b;
-    border-color: gold; 
+  background-color: #09132b;
+  border-color: gold;
 }
 
 h2 {
-    border-bottom: 3px solid gold;
+  border-bottom: 3px solid gold;
 }

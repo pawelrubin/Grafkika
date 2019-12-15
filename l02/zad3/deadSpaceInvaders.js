@@ -23,6 +23,7 @@ window.addEventListener("load", () => {
   const stars = generateStars(canvas);
   const enemies = [generateEnemy(canvas)];
   let objects = stars.concat(enemies);
+
   requestAnimationFrame(render);
 
   function render() {
@@ -59,6 +60,39 @@ window.addEventListener("load", () => {
     if (event.key == "ArrowRight") {
       spaceShip.translation[0] += 10;
     }
+  });
+
+  // Events
+  let mousedown = false;
+  let mx = 0;
+
+  function initMove(evt) {
+    mousedown = true;
+    mx = evt.clientX;
+  }
+
+  function move(evt) {
+    if (mousedown) {
+      spaceShip.translation[0] += evt.clientX - mx;
+      mx = evt.clientX;
+    }
+  }
+
+  function stopMove() {
+    mousedown = false;
+  }
+
+  canvas.addEventListener("touchstart", event => {
+    event.preventDefault();
+    initMove(event.touches[event.touches.length - 1]);
+  });
+  canvas.addEventListener("touchmove", event => {
+    event.preventDefault();
+    move(event.touches[event.touches.length - 1]);
+  });
+  canvas.addEventListener("touchcancel", event => {
+    event.preventDefault();
+    stopMove(event.touches[event.touches.length - 1]);
   });
 });
 

@@ -84,7 +84,7 @@ export class MatrixWebGL {
     this.gl.useProgram(this.program);
     this.gl.enableVertexAttribArray(this.locations.attributes.position);
     this.gl.lineWidth(4);
-
+    resizeCanvas(this.gl.canvas)
     objects.forEach(object => {
       this.gl.enableVertexAttribArray(this.locations.attributes.position);
       const positionBuffer = this.gl.createBuffer();
