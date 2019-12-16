@@ -1,11 +1,20 @@
 import { MatrixWebGL, DrawableObject } from "../WebGL/MatrixWebGL.js";
-import { clone } from "../shared/Utils.js";
+import { clone, resizeCanvas } from "../shared/Utils.js";
 
 const BASIC_DEPTH = 1 / 4;
 const SPEED = 3;
 
+
 window.addEventListener("load", () => {
-  const webGL = new MatrixWebGL(canvas);
+  let webGL = new MatrixWebGL(canvas);
+  let score = 0;
+
+  function updateScore() {
+    scoreBoard.textContent = `score: ${score}`;
+  }  
+
+  updateScore();
+
   const spaceShip = new DrawableObject(
     [
       canvas.width / 2 - 50,
@@ -30,7 +39,7 @@ window.addEventListener("load", () => {
   function render() {
     if (Math.random() > 0.995) {
       let enemy = generateEnemy(canvas);
-      webGL.bindTextureToObject(enemy, "../textures/trak.jpg")
+      webGL.bindTextureToObject(enemy, "../textures/trak.jpg");
       objects.push(enemy);
     }
 
@@ -43,12 +52,37 @@ window.addEventListener("load", () => {
 
     // move enemies and stars
     objects.forEach(o => {
-      o.translation[1] += (1.01 - o.depth) * SPEED;
+      if (o.type == "enemy") {
+        o.translation[1] += (1.01 - o.depth) * SPEED;
+      } else {
+        o.translation[1] += (1.01 - o.depth);
+      }
     });
+
+    for (let o of objects) {
+      if (o.type == "enemy") {
+        let enemyY = o.translation[1] - o.offset;
+        let spaceShipL = canvas.width / 2 - 50 + spaceShip.translation[0];
+        let spaceShipR = canvas.width / 2 + 50 + spaceShip.translation[0];
+
+        if (enemyY > canvas.height - 50 && enemyY < canvas.height - 10) {
+          if (o.x > spaceShipL && o.x < spaceShipR) {
+            console.log("HIT");
+            o.destroyed = true;
+            score++;
+            updateScore();
+          }
+        }
+      }
+    }
 
     // delete enemies under canvas
     objects = objects.filter(
-      o => !(o.type == "enemy" && o.translation[1] > canvas.height)
+      o =>
+        !(
+          o.type == "enemy" &&
+          (o.translation[1] - o.offset > canvas.height || o.destroyed)
+        )
     );
 
     webGL.draw(objects.concat(spaceShip));
@@ -142,6 +176,9 @@ function generateEnemy(canvas) {
   );
   enemy.depth = BASIC_DEPTH;
   enemy.type = "enemy";
+  enemy.offset = offset;
+  enemy.x = startX + size / 2;
 
   return enemy;
 }
+

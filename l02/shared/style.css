@@ -34,9 +34,11 @@ body {
     width: 600px;
     height: 600px;
   }
+
   html {
     height: auto;
   }
+  
   #desktopInfo {
     visibility: visible;
   }
