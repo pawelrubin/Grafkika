@@ -17,18 +17,21 @@ window.addEventListener("load", () => {
     ],
     "TRIANGLES"
   );
+  webGL.bindTextureToObject(spaceShip, "../textures/metal.png");
   spaceShip.color = [33 / 255, 55 / 255, 105 / 255, 1];
   spaceShip.depth = BASIC_DEPTH;
 
   const stars = generateStars(canvas);
-  const enemies = [generateEnemy(canvas)];
-  let objects = stars.concat(enemies);
+
+  let objects = stars;
 
   requestAnimationFrame(render);
 
   function render() {
     if (Math.random() > 0.995) {
-      objects.push(generateEnemy(canvas));
+      let enemy = generateEnemy(canvas);
+      webGL.bindTextureToObject(enemy, "../textures/trak.jpg")
+      objects.push(enemy);
     }
 
     // loop stars animation
@@ -94,6 +97,10 @@ window.addEventListener("load", () => {
     event.preventDefault();
     stopMove(event.touches[event.touches.length - 1]);
   });
+
+  canvas.addEventListener("mousedown", initMove);
+  canvas.addEventListener("mousemove", move);
+  canvas.addEventListener("mouseup", stopMove);
 });
 
 function generateRandomPoints(canvas, n) {
@@ -126,9 +133,11 @@ function generateStars(canvas) {
 
 function generateEnemy(canvas) {
   const startX = Math.random() * canvas.width;
+  const size = 30 + Math.random() * 20;
+  const offset = 100;
 
   const enemy = new DrawableObject(
-    [startX, 0, startX + 50, 0, startX + 25, 50],
+    [startX, -offset, startX + size, -offset, startX + size / 2, size - offset],
     "TRIANGLES"
   );
   enemy.depth = BASIC_DEPTH;
