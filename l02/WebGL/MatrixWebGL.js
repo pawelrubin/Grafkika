@@ -129,7 +129,7 @@ export class MatrixWebGL {
     resizeCanvas(this.gl.canvas);
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clearColor(0, 0, 0, 0);
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.depthFunc(this.gl.LEQUAL);

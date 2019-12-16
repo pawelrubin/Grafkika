@@ -7,6 +7,14 @@ html {
   margin: 0;
 }
 
+html.game {
+  background-image: url("space.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: white;
+  height: 100%;
+}
+
 body {
   margin-block: 0;
   height: 100%;
@@ -38,7 +46,7 @@ body {
   html {
     height: auto;
   }
-  
+
   #desktopInfo {
     visibility: visible;
   }
@@ -61,6 +69,6 @@ body {
   border-color: gold;
 }
 
-h2 {
+h1 {
   border-bottom: 3px solid gold;
 }

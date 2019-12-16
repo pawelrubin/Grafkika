@@ -4,14 +4,13 @@ import { clone, resizeCanvas } from "../shared/Utils.js";
 const BASIC_DEPTH = 1 / 4;
 const SPEED = 3;
 
-
 window.addEventListener("load", () => {
   let webGL = new MatrixWebGL(canvas);
   let score = 0;
 
   function updateScore() {
     scoreBoard.textContent = `score: ${score}`;
-  }  
+  }
 
   updateScore();
 
@@ -53,9 +52,9 @@ window.addEventListener("load", () => {
     // move enemies and stars
     objects.forEach(o => {
       if (o.type == "enemy") {
-        o.translation[1] += (1.01 - o.depth) * SPEED;
+        o.translation[1] += (1.01 - o.depth) * SPEED * Math.log2(score + 2);
       } else {
-        o.translation[1] += (1.01 - o.depth);
+        o.translation[1] += (1.01 - o.depth) * Math.log2(score + 2);
       }
     });
 
@@ -76,13 +75,20 @@ window.addEventListener("load", () => {
       }
     }
 
+    objects = objects.filter(o => !o.destroyed);
+
+    for (let o of objects) {
+      if (o.type == "enemy" && o.translation[1] - o.offset > canvas.height) {
+        if (score > 0) {
+          score--;
+          updateScore();
+        }
+      }
+    }
+
     // delete enemies under canvas
     objects = objects.filter(
-      o =>
-        !(
-          o.type == "enemy" &&
-          (o.translation[1] - o.offset > canvas.height || o.destroyed)
-        )
+      o => !(o.type == "enemy" && o.translation[1] - o.offset > canvas.height)
     );
 
     webGL.draw(objects.concat(spaceShip));
@@ -156,7 +162,7 @@ function generateStars(canvas) {
     let s = new DrawableObject(generateRandomPoints(canvas, 5 ** i), "POINTS");
     s.color = [1, 1, 1, 1];
     s.depth = i / (STARS_LEVELS - 1);
-    s.pointSize = 1.0 + (1 - i / (STARS_LEVELS - 1)) * 4;
+    s.pointSize = 1.0 + (1 - i / (STARS_LEVELS - 1)) * 2;
     let sCopy = clone(s);
     sCopy.translation[1] = -canvas.height;
     stars.push(s);
@@ -181,4 +187,3 @@ function generateEnemy(canvas) {
 
   return enemy;
 }
-
