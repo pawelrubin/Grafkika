@@ -472,10 +472,14 @@ function onKeyDown(e){
 
     const filters = [
         gl.NEAREST,
-        gl.LINEAR
+        gl.LINEAR,
+        gl.NEAREST_MIPMAP_NEAREST,
+        gl.NEAREST_MIPMAP_LINEAR,
+        gl.LINEAR_MIPMAP_NEAREST,
+        gl.LINEAR_MIPMAP_LINEAR
     ];
 
-    redraw(filters[Math.abs(currentFilter%2)]);
+    redraw(filters[Math.abs(currentFilter%6)]);
 }
 
 
