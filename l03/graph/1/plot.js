@@ -1,11 +1,11 @@
 class Plot {
   constructor(gl, triangles) {
     this.size = 1000;
-    this.fidelity = 50;
+    this.precision = 400;
     this.positions = this.generatePlot(
       [-5, 5],
       [-5, 5],
-      (x, y) => (Math.sign(0.2-(x**2+y**2)) + Math.sign(0.2-(x**2/3+y**2/3)))/3-1 ,
+      (x, y) => Math.sin(x**3 + y**3) ,
       triangles
     );
     this.positionBuffer = initBuffers(gl, this.positions);
@@ -18,62 +18,62 @@ class Plot {
 
   generatePlot(xRange, yRange, func, triangles) {
     let plot = [];
-    for (let x = 0; x < this.fidelity; x++) {
-      for (let y = 0; y < this.fidelity; y++) {
+    for (let x = 0; x < this.precision; x++) {
+      for (let y = 0; y < this.precision; y++) {
         let value = func(
-          xRange[0] + (x * (xRange[1] - xRange[0])) / this.fidelity,
-          yRange[0] + (y * (yRange[1] - yRange[0])) / this.fidelity
+          xRange[0] + (x * (xRange[1] - xRange[0])) / this.precision,
+          yRange[0] + (y * (yRange[1] - yRange[0])) / this.precision
         );
 
         if (triangles) {
           let nextY = null;
           let nextX = null;
           let nextYX = null;
-          if (y !== this.fidelity - 1) {
+          if (y !== this.precision - 1) {
             nextY = func(
-              xRange[0] + (x * (xRange[1] - xRange[0])) / this.fidelity,
-              yRange[0] + ((y + 1) * (yRange[1] - yRange[0])) / this.fidelity
+              xRange[0] + (x * (xRange[1] - xRange[0])) / this.precision,
+              yRange[0] + ((y + 1) * (yRange[1] - yRange[0])) / this.precision
             );
           }
-          if (x !== this.fidelity - 1) {
+          if (x !== this.precision - 1) {
             nextX = func(
-              xRange[0] + ((x + 1) * (xRange[1] - xRange[0])) / this.fidelity,
-              yRange[0] + (y * (yRange[1] - yRange[0])) / this.fidelity
+              xRange[0] + ((x + 1) * (xRange[1] - xRange[0])) / this.precision,
+              yRange[0] + (y * (yRange[1] - yRange[0])) / this.precision
             );
           }
-          if (x !== this.fidelity - 1 && y !== this.fidelity - 1) {
+          if (x !== this.precision - 1 && y !== this.precision - 1) {
             nextYX = func(
-              xRange[0] + ((x + 1) * (xRange[1] - xRange[0])) / this.fidelity,
-              yRange[0] + ((y + 1) * (yRange[1] - yRange[0])) / this.fidelity
+              xRange[0] + ((x + 1) * (xRange[1] - xRange[0])) / this.precision,
+              yRange[0] + ((y + 1) * (yRange[1] - yRange[0])) / this.precision
             );
           }
 
           if (nextX !== null && nextY !== null && nextYX !== null) {
             plot.push(
-              (x * this.size) / this.fidelity - this.size / 2,
-              (y * this.size) / this.fidelity - this.size / 2,
+              (x * this.size) / this.precision - this.size / 2,
+              (y * this.size) / this.precision - this.size / 2,
               value,
-              ((x + 1) * this.size) / this.fidelity - this.size / 2,
-              (y * this.size) / this.fidelity - this.size / 2,
+              ((x + 1) * this.size) / this.precision - this.size / 2,
+              (y * this.size) / this.precision - this.size / 2,
               nextX,
-              (x * this.size) / this.fidelity - this.size / 2,
-              ((y + 1) * this.size) / this.fidelity - this.size / 2,
+              (x * this.size) / this.precision - this.size / 2,
+              ((y + 1) * this.size) / this.precision - this.size / 2,
               nextY,
-              ((x + 1) * this.size) / this.fidelity - this.size / 2,
-              ((y + 1) * this.size) / this.fidelity - this.size / 2,
+              ((x + 1) * this.size) / this.precision - this.size / 2,
+              ((y + 1) * this.size) / this.precision - this.size / 2,
               nextYX,
-              ((x + 1) * this.size) / this.fidelity - this.size / 2,
-              (y * this.size) / this.fidelity - this.size / 2,
+              ((x + 1) * this.size) / this.precision - this.size / 2,
+              (y * this.size) / this.precision - this.size / 2,
               nextX,
-              (x * this.size) / this.fidelity - this.size / 2,
-              ((y + 1) * this.size) / this.fidelity - this.size / 2,
+              (x * this.size) / this.precision - this.size / 2,
+              ((y + 1) * this.size) / this.precision - this.size / 2,
               nextY
             );
           }
         } else {
           plot.push(
-            (x * this.size) / this.fidelity - this.size / 2,
-            (y * this.size) / this.fidelity - this.size / 2,
+            (x * this.size) / this.precision - this.size / 2,
+            (y * this.size) / this.precision - this.size / 2,
             value
           );
         }

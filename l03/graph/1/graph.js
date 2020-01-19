@@ -11,7 +11,7 @@ function main() {
   window.addEventListener("keydown", event => (pressedKeys[event.key] = true));
   window.addEventListener("keyup", event => (pressedKeys[event.key] = false));
 
-  let engine = new Engine(gl, true);
+  let engine = new Engine(gl, false);
   resizeCanvas(engine.gl.canvas);
 
   function render() {
